@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getAccessTokenFromCookie } from './cookie';
 
 const axiosInstance = axios.create({
-	baseURL: 'http://localhost:8000/',
+	baseURL: 'https://de7a-174-114-232-152.ngrok-free.app/',
 });
 
 axiosInstance.interceptors.request.use(

@@ -13,7 +13,7 @@ export default function ChatSidePanel({ entities, updateMessages }) {
 	};
 
 	useEffect(() => {
-		if (!selectedChat && entities.length > 0) {
+		if (!selectedChat && entities && entities.length > 0) {
 			setSelectedChat(entities[0]?.username);
 		}
 	}, [entities]);
@@ -21,7 +21,7 @@ export default function ChatSidePanel({ entities, updateMessages }) {
 	return (
 		<>
 			<ul className="space-y-2 my-3 flex-1 overflow-y-auto">
-				{entities.map((entity) => (
+				{entities && entities?.map((entity) => (
 					<li
 						key={entity?.username}
 						className={`cursor-pointer hover:bg-gray-300 p-2 px-4 rounded flex items-center ${
@@ -46,7 +46,7 @@ export default function ChatSidePanel({ entities, updateMessages }) {
 							<div
 								className={`h-2 w-2 rounded-full ${
 									entity?.status === 'online'
-										? 'bg-green-500'
+										? 'bg-blue-500'
 										: 'bg-red-500'
 								} `}
 							></div>

@@ -49,7 +49,7 @@ export default function ChatBox({
 					<div className="flex flex-col space-y-1">
 						{/* Render messages based on selected chat */}
 						{messages &&
-							messages.map((message, index) => {
+							messages?.map((message, index) => {
 								return (
 									<ChatMessage
 										key={index}

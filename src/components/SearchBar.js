@@ -41,7 +41,7 @@ export default function SearchBar({ handleSearchSelection }) {
 			/>
 			{searchTerm && (
 				<ul className="absolute top-full left-0 z-10 bg-white border border-gray-300 rounded-md shadow-md w-full">
-					{suggestions.map((suggestion, index) => (
+					{suggestions && suggestions?.map((suggestion, index) => (
 						<li
 							key={index}
 							className="py-2 px-4 cursor-pointer hover:bg-gray-100"
