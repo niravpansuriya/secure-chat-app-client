@@ -46,7 +46,7 @@ export default function ChatSidePanel({ entities, updateMessages }) {
 							<div
 								className={`h-2 w-2 rounded-full ${
 									entity?.status === 'online'
-										? 'bg-blue-500'
+										? 'bg-green-500'
 										: 'bg-red-500'
 								} `}
 							></div>
