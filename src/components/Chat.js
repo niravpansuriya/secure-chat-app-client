@@ -13,17 +13,28 @@ import { socket as so } from '../socket.io';
 import SearchBar from './SearchBar';
 import { getMessages } from '../utils/chat';
 
+/**
+ * Chat component represents the main chat interface.
+ * It displays the chat side panel, chat box, and other related components.
+ */
 export default function Chat() {
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	/**
+	 * Opens the modal.
+	 */
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
 	};
 
+	/**
+	 * Closes the modal.
+	 */
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 	};
+
 	const [messages, setMessages] = useState([]);
 	const [currentChatParty, setCurrentChatParty] = useState('');
 	const [socket, setSocket] = useState(null);
@@ -102,6 +113,10 @@ export default function Chat() {
 		updateMessages();
 	}, [currentChatParty]);
 
+	/**
+	 * Retrieves the user's contacts from the server.
+	 * @returns {Promise<Array>} The user's contacts.
+	 */
 	const getUserContacts = async () => {
 		try {
 			const response = await axios.get('/chat/contacts');
@@ -110,6 +125,9 @@ export default function Chat() {
 		} catch (error) {}
 	};
 
+	/**
+	 * Updates the messages for the current chat party.
+	 */
 	const updateMessages = async () => {
 		if (currentChatParty) {
 			const newMessages = await getMessages(currentChatParty);
@@ -117,12 +135,20 @@ export default function Chat() {
 		}
 	};
 
+	/**
+	 * Handles the selection from the search bar.
+	 * @param {string} suggestion - The selected suggestion.
+	 */
 	const handleSearchSelection = async (suggestion) => {
 		if (suggestion) {
 			setCurrentChatParty(suggestion);
 		}
 	};
 
+	/**
+	 * Handles sending a message.
+	 * @param {string} message - The message to send.
+	 */
 	const handleSendMessageButton = async (message) => {
 		if (socket && currentChatParty) {
 			socket.sendMessage('SEND_MESSAGE', {
@@ -131,12 +157,17 @@ export default function Chat() {
 			});
 		}
 	};
+
+	/**
+	 * Handles the logout action.
+	 */
 	const handleLogout = () => {
 		if (clearOnLogout()) {
 			so.disconnect();
 			navigate('/login');
 		}
 	};
+
 	return (
 		<>
 			<div className="bg-gray-100 h-screen flex w-full">

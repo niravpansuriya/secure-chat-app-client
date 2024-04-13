@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-
 //  entities = [
 // 	{
 // username, status
 // 	}
 // ]
+
 export default function ChatSidePanel({ entities, updateMessages }) {
 	const [selectedChat, setSelectedChat] = useState('');
+
+	/**
+	 * Handles the selection of a chat entity.
+	 */
 	const handleChatSelect = (id) => {
 		setSelectedChat(id);
 		updateMessages(id);
 	};
 
 	useEffect(() => {
+		// Set the selected chat to the first entity if no chat is selected and there are entities available
 		if (!selectedChat && entities && entities.length > 0) {
 			setSelectedChat(entities[0]?.username);
 		}
@@ -63,9 +68,6 @@ export default function ChatSidePanel({ entities, updateMessages }) {
 										/>
 									</svg>
 								)}
-								{/* <p className="text-sm text-gray-500">
-							"hey"
-						</p> */}
 							</div>
 						</li>
 					))}

@@ -12,6 +12,9 @@ export default function ChatBox({
 	const host = getUsernameFromCookie();
 	const messagesEndRef = useRef(null);
 
+	/**
+	 * Scrolls to the bottom of the chat messages.
+	 */
 	const scrollToBottom = () => {
 		if (messagesEndRef.current) {
 			messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -22,6 +25,10 @@ export default function ChatBox({
 		scrollToBottom();
 	}, [messages]);
 
+	/**
+	 * Handles sending a message when the enter key is pressed.
+	 * @param {Object} event - The keydown event.
+	 */
 	const handleSendMessage = (event) => {
 		if (event.keyCode === 13) {
 			handleSendMessageButton(message);
