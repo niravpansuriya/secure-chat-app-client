@@ -62,11 +62,16 @@ export default function Chat() {
 		so.socket.onmessage = function (event) {
 			event = JSON.parse(event?.data);
 			const type = event.type;
-			if (type === 'SEND_MESSAGE_USER') {
+			if (type === 'SEND_MESSAGE') {
 				const data = event?.data;
 				const sender = data?.sender;
-
-				if (currentChatParty === sender) {
+				const receiver = data?.receiver;
+				const isDirectMessage = data?.is_direct_message;
+				if (
+					getUsernameFromCookie() === sender ||
+					(isDirectMessage && currentChatParty === sender) ||
+					(isDirectMessage === false && currentChatParty === receiver)
+				) {
 					setMessages((messages) => {
 						return [...messages, data];
 					});
@@ -87,6 +92,7 @@ export default function Chat() {
 				});
 			} else if (type == 'ADD_CONTACT') {
 				const data = event?.data;
+				console.log('data', data);
 				const contact = data?.contact;
 				setContacts((contacts) => {
 					return [...contacts, contact];
@@ -123,14 +129,6 @@ export default function Chat() {
 				receiver: currentChatParty,
 				message: message,
 			});
-			setMessages((messages) => [
-				...messages,
-				{
-					sender: getUsernameFromCookie(),
-					receiver: currentChatParty,
-					message,
-				},
-			]);
 		}
 	};
 	const handleLogout = () => {
@@ -176,7 +174,9 @@ export default function Chat() {
 				/>
 			</div>
 			{/* Render the Modal component */}
-			<Modal isOpen={isModalOpen} onClose={handleCloseModal} />
+			{isModalOpen && (
+				<Modal isOpen={isModalOpen} onClose={handleCloseModal} />
+			)}
 		</>
 	);
 }

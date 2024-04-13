@@ -35,14 +35,23 @@ export default function ChatBox({
 			<div className="flex-1 bg-gray-50 flex flex-col">
 				{/* Chat header */}
 				<div className="bg-blue-600 py-2 px-4 text-white flex justify-between items-center">
-					<span className="font-bold text-x">
-						{currentChatParty}
-					</span>
-					<img
-						src={mainLogo}
-						alt="main logo"
-						class="w-10 h-10 text-blue-500"
-					></img>
+					<span className="font-bold text-x">{currentChatParty}</span>
+					<div className="flex items-center">
+						<div className="font-bold text-x mr-2">
+							<div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-[#FDEEBF] rounded-full ">
+								<span class="font-medium text-black">
+									{getUsernameFromCookie()?.[0]?.toUpperCase()}
+								</span>
+							</div>
+						</div>
+						<div>
+							<img
+								src={mainLogo}
+								alt="main logo"
+								class="w-10 h-10 text-blue-500"
+							></img>
+						</div>
+					</div>
 				</div>
 				{/* Chat messages */}
 				<div className="flex-1 overflow-y-auto p-4">
@@ -54,7 +63,15 @@ export default function ChatBox({
 									<ChatMessage
 										key={index}
 										text={message.message}
-										type={message.sender === host ? 'SENT' : 'RECEIVED'}
+										type={
+											message.sender === host
+												? 'SENT'
+												: 'RECEIVED'
+										}
+										sender={message?.sender}
+										isGroupMessage={
+											!message.is_direct_message
+										}
 									/>
 								);
 							})}

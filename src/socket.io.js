@@ -1,4 +1,5 @@
-const URL = 'ws://localhost:8000/ws/chat/';
+// const URL = 'ws://localhost:8000/ws/chat/';
+const URL = 'wss:de7a-174-114-232-152.ngrok-free.app/ws/chat/';
 
 class Socket {
 	constructor() {
